@@ -1,0 +1,11 @@
+nav{
+    background-color: deepskyblue !important;
+}
+
+.dropdown-menu{
+    background-color: deepskyblue !important;
+}
+
+.dropdown-item:visited{
+    background-color: rgb(70, 205, 250) !important;
+}

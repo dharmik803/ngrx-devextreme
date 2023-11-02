@@ -1,0 +1,119 @@
+<!-- <div class="container"> -->
+  <!-- <div class="row mb-2 mt-5">
+      <div class="col-sm-6 offset-3">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="input-group">
+                      <div class="custom-file">
+                          <input type="file" name="file" class="custom-file-input" id="inputGroupFile" required (change)="handleImport($event)"
+                              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                          <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <button (click)="handleExport()" class="btn btn-primary float-right">
+                      Export
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div> -->
+  <!-- <div class="">
+      <div class="">
+          <table class="table">
+            <ng-container *ngIf="foodItem.length; else elseBlock">
+              <thead>
+                  <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Food Item</th>
+                      <th scope="col">Measure</th>
+                      <th scope="col">Calories</th>
+                      <th scope="col">Protein</th>
+                      <th scope="col">Fat</th>
+                      <th scope="col">Carbs</th>
+                      <th scope="col">Fibre</th>
+                  </tr>
+                </thead>
+              </ng-container>
+              <tbody>
+                      <tr *ngFor="let item of foodItem; let i = index">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{ item.Category }}</td>
+                          <td>{{ item.Food_Item }}</td>
+                          <td>{{ item.Measure }}</td>
+                          <td>{{ item.Calories }}</td>
+                          <td>{{ item.Protein }}</td>
+                          <td>{{ item.Fat }}</td>
+                          <td>{{ item.Carbs }}</td>
+                          <td>{{ item.Fibre }}</td>
+                      </tr>
+                  <ng-template #elseBlock>
+                      <tr class="">
+                          <td colspan="9" class="text-center">No Food Items Found.</td>
+                      </tr>
+                  </ng-template>
+              </tbody>
+          </table>
+      </div>
+  </div> -->
+<!-- </div> -->
+
+
+<div class="food-item-container">
+    <h1 class="text-center">Food Item Information</h1>
+    <div class="btn-container">
+        <!-- <dx-file-uploader
+            selectButtonText="Import file"
+            labelText="Import file of data..."
+            (onValueChanged)="onValueChanged($event)"
+            [multiple]="false"
+            [invalidFileExtensionMessage]="'invalid file extension'"
+            uploadMode="useButtons"
+            dialogTrigger="#dropzone-external"
+            dropZone="#dropzone-external"
+            (onUploadStarted)="onUploadStarted($event)"
+        ></dx-file-uploader> -->
+
+        <dx-file-uploader
+            #fileUploader
+            (onValueChanged)="onValueChanged($event)"
+            [multiple]="false"
+            dialogTrigger="#dropzone-external"
+            dropZone="#dropzone-external"
+            (onUploadStarted)="onUploadStarted($event)"
+            uploadMode="useButtons"
+            (onProgress)="onProgress($event)"
+        ></dx-file-uploader>
+
+        <dx-button
+            text="Export file"
+            type="success"
+            (onClick)="handleExport()">
+        </dx-button>
+        
+    </div>
+
+    <dx-data-grid 
+        [dataSource]="dataList"
+        [showBorders]="true"
+        [width]="'100%'"
+        [columnAutoWidth]="true"
+    >
+
+    <dxo-paging [pageSize]="15" [pageIndex]="0"></dxo-paging>
+    <dxo-pager [showNavigationButtons]="true" [showInfo]="true"></dxo-pager>
+
+    <dxo-search-panel
+      [visible]="true"
+      [width]="250"
+      [highlightCaseSensitive]="true"
+    ></dxo-search-panel>
+
+    <dxo-load-panel [enabled]="true" > </dxo-load-panel>
+
+    
+
+    </dx-data-grid>
+</div>

@@ -1,0 +1,7 @@
+::ng-deep .dx-last-col.dx-last-row.dx-field-item.dx-col-1.dx-field-button-item{
+    text-align: left !important;
+}
+
+::ng-deep .dx-toolbar-label > div{
+    width: 150px;
+}

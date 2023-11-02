@@ -1,0 +1,13 @@
+::ng-deep #fileuploader-container {
+    border: 1px solid #d3d3d3;
+    margin: 20px 20px 0 20px;
+  }
+
+
+::ng-deep .dx-button-mode-contained.dx-button-success{
+    margin-left: 9px !important;
+}
+
+::ng-deep .btn-upload{
+  display: none;
+}

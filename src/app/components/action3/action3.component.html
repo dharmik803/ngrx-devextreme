@@ -1,0 +1,100 @@
+<dx-popup
+    [width]="600"
+    [height]="500"
+    [showTitle]="true"
+    [title]="popupTitle"
+    [dragEnabled]="false"
+    [visible]="popupVisible"
+    [hideOnOutsideClick]="false"
+    (onHidden)="onHidden()"
+    (onShowing)="onShowing()"
+>
+
+<div class="form-container">
+    <form (submit)="handleSubmit(formData)">
+        <dx-form
+            [(formData)]="formData"
+            [colCount]="2"
+        >
+            <dxi-item dataField="id" [visible]="false">
+                
+            </dxi-item>
+            <dxi-item dataField="category" [colSpan]="2">
+                <dxi-validation-rule
+                    type="required"
+                    message="Field is Required."
+                ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="food_item" [colSpan]="2">
+                <dxi-validation-rule
+                    type="required"
+                    message="Field is Required."
+                ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item 
+                dataField="measure"
+                editorType="dxSelectBox"
+                [editorOptions]="measureEditorOptions"
+            >
+                <dxi-validation-rule
+                    type="required"
+                    message="Field is Required."
+                ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="calories" ></dxi-item>
+            <dxi-item dataField="protein" ></dxi-item>
+            <dxi-item dataField="fats" ></dxi-item>
+            <dxi-item dataField="carbs" ></dxi-item>
+            <dxi-item dataField="fibre" ></dxi-item>
+            <dxi-item dataField="price" >
+                <dxi-validation-rule
+                    type="required"
+                    message="Field is Required."
+                ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item 
+                dataField="food_type"
+                editorType="dxSelectBox"
+                [editorOptions]="foodtypeEditorOptions"
+            >
+                <dxi-validation-rule
+                    type="required"
+                    message="Field is Required."
+                ></dxi-validation-rule>
+                <!-- <dx-select-box
+                    [dataSource]="selectBoxFoodType"
+                    displayExpr="display"
+                    valueExpr="value"
+                    placeholder="Select a product..."
+                    (onValueChanged)="onValueChanged($event)">
+                </dx-select-box> -->
+            </dxi-item>
+            <dxi-item dataField="rating" ></dxi-item>
+            <dxi-item 
+                dataField="serving_size"
+                editorType="dxSelectBox"
+                [editorOptions]="servingsizeEditorOptions"
+            >
+            </dxi-item>
+            <dxi-item dataField="sugar" ></dxi-item>
+            <dxi-item></dxi-item>
+
+            <dxi-item 
+                itemType="button"
+                [buttonOptions]="submitButtonOptions"
+            >
+            </dxi-item>
+
+            <dxi-item
+                itemType="button"
+                [visible]="isEditFlag"
+                [buttonOptions]="deleteButtonOptions"
+            >
+            </dxi-item>
+
+        </dx-form>
+    </form>
+</div>
+
+</dx-popup>
+
