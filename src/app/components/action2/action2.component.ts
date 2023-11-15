@@ -70,16 +70,16 @@ export class Action2Component implements OnInit {
         category: e.category,
         food_item: e.food_item,
         measure: e.measure.toString(),
-        calories: parseInt(e.calories),
-        protein: parseInt(e.protein),
-        fats: parseInt(e.fats),
-        carbs: parseInt(e.carbs),
-        fibre: parseInt(e.fibre),
-        price: parseInt(e.price),
+        calories: +e.calories,
+        protein: +e.protein,
+        fats: +e.fats,
+        carbs: +e.carbs,
+        fibre: +e.fibre,
+        price: +e.price,
         food_type: e.food_type,
-        rating: parseInt(e.rating),
+        rating: +e.rating,
         serving_size: e.serving_size,
-        sugar: parseInt(e.sugar),
+        sugar: +e.sugar,
       };
       this.store$.dispatch(editFood({ inputdata: data }));
     }
@@ -88,6 +88,11 @@ export class Action2Component implements OnInit {
   getDeleteId(e: number){
     console.log('Delete id fetched', e);
     this.store$.dispatch(deleteFood({ inputid: e }));
+  }
+
+  onClickShowDetail(e: any){
+    console.log('Show detail fetched', e)
+    this.router.navigate(['action2', e.data.id]);
   }
 
 

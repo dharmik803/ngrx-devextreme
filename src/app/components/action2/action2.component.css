@@ -74,11 +74,9 @@
 .link-class{
   color: blue;
   text-decoration: underline;
-}
-
-.link-class:hover{
   cursor: pointer;
 }
+
 
 #addButton{
   background-color: deepskyblue !important;
@@ -87,4 +85,9 @@
 
 #addButton:hover{
   background-color: rgb(5, 152, 201) !important;
+}
+
+.detail-link{
+  color: blue;
+  cursor: pointer;
 }

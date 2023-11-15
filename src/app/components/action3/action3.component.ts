@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Foods } from 'src/app/models/fooditem.model';
+import { loadFood } from 'src/app/store/ngrx.action';
+import { getFoodList } from 'src/app/store/ngrx.selector';
 
 @Component({
   selector: 'app-action3',
@@ -20,6 +24,8 @@ export class Action3Component implements OnInit {
 
   formData!: Foods;
 
+  seeDetailData!: Foods;
+
   // selectBoxFoodType = [
   //   {
   //     display: 'Veg',
@@ -33,7 +39,7 @@ export class Action3Component implements OnInit {
 
   foodtypeEditorOptions = {
     items: ['veg', 'non-veg'],
-    placeholder: 'Select food type...'
+    placeholder: 'Select food type...',
   };
 
   measureEditorOptions = {
@@ -53,9 +59,9 @@ export class Action3Component implements OnInit {
       '1 slice',
       '1 piece',
       '1 bowl',
-      '1 serving'
+      '1 serving',
     ],
-    placeholder: 'Select measure...'
+    placeholder: 'Select measure...',
   };
 
   servingsizeEditorOptions = {
@@ -72,16 +78,32 @@ export class Action3Component implements OnInit {
       '1 piece',
       '1 plate',
       '1 bowl',
-      '1 serving'
+      '1 serving',
     ],
-    placeholder: 'Select serving size...'
+    placeholder: 'Select serving size...',
   };
 
-  popupTitle!: string;
+  formTitle!: string;
 
-  constructor() {}
+  deletePopupVisibility!: boolean;
 
-  ngOnInit(): void {}
+  editingChangePopupVisibility: boolean = false;
+
+  constructor(private activatedRoute: ActivatedRoute, private store: Store) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((param) => {
+      console.log(param);
+      if (param) {
+        this.store.dispatch(loadFood());
+        this.store.select(getFoodList).subscribe((item) => {
+          this.seeDetailData = item.find(
+            (d) => d.id == parseInt(param['id'])
+          ) as Foods;
+        });
+      }
+    });
+  }
 
   onHidden() {
     // console.log('showCloseButtonChange');
@@ -105,22 +127,25 @@ export class Action3Component implements OnInit {
     text: 'Delete',
     type: 'danger',
     icon: 'trash',
-    onClick: this.handleDelete.bind(this),
+    onClick: this.onClickDelete.bind(this),
   };
 
   handleDelete() {
     // console.log('Delete clicked', this.formData.id)
     this.deleteId.emit(this.formData.id);
+    this.deletePopupVisibility = false;
     this.popupVisible = false;
   }
 
   handleSubmit(data: Foods) {
+    console.log('Submit clicked', data);
     this.currentFoodChange.emit(data);
+    this.editingChangePopupVisibility = false;
     this.popupVisible = false;
   }
 
   onShowing() {
-    this.popupTitle = this.isEditFlag == true ? 'Edit Item' : 'Add Item';
+    this.formTitle = this.isEditFlag == true ? 'Edit Item' : 'Add Item';
 
     if (!this.isEditFlag) {
       this.formData = {
@@ -142,5 +167,47 @@ export class Action3Component implements OnInit {
     } else {
       this.formData = { ...this.currentFood };
     }
+  }
+
+  onClickDelete() {
+    this.deletePopupVisibility = true;
+  }
+
+  onCloseEditPopup(data: Foods) {
+    console.log('editing confirmation', this.currentFood, data);
+    if (this.isEditFlag == true) {
+      if (
+        data.calories != this.currentFood.calories ||
+        data.carbs != this.currentFood.carbs ||
+        data.category != this.currentFood.category ||
+        data.fats != this.currentFood.fats ||
+        data.fibre != this.currentFood.fibre ||
+        data.food_item != this.currentFood.food_item ||
+        data.food_type != this.currentFood.food_type ||
+        data.measure != this.currentFood.measure ||
+        data.price != this.currentFood.price ||
+        data.protein != this.currentFood.protein ||
+        data.rating != this.currentFood.rating ||
+        data.serving_size != this.currentFood.serving_size ||
+        data.sugar != this.currentFood.sugar
+      ) {
+        this.editingChangePopupVisibility = true;
+      } else {
+        this.editingChangePopupVisibility = false;
+        this.popupVisible = false;
+      }
+    }
+    else{
+      this.popupVisible = false;
+    }
+  }
+
+  onClickNoEditSaveChanges() {
+    this.editingChangePopupVisibility = !this.editingChangePopupVisibility;
+    this.popupVisible = false;
+  }
+
+  onClickCancelEditSaveChanges() {
+    this.editingChangePopupVisibility = false;
   }
 }

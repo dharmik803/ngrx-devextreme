@@ -2,15 +2,22 @@
     [width]="600"
     [height]="500"
     [showTitle]="true"
-    [title]="popupTitle"
+    [title]="formTitle"
     [dragEnabled]="false"
     [visible]="popupVisible"
-    [hideOnOutsideClick]="false"
+    [hideOnOutsideClick]="true"
     (onHidden)="onHidden()"
     (onShowing)="onShowing()"
+    [showCloseButton]="false"
 >
 
 <div class="form-container">
+    <dx-button
+        id="closeEditPopup"
+        icon="close"
+        (onClick)="onCloseEditPopup(formData)">
+    </dx-button>
+    
     <form (submit)="handleSubmit(formData)">
         <dx-form
             [(formData)]="formData"
@@ -98,3 +105,87 @@
 
 </dx-popup>
 
+
+<dx-popup
+[width]="235"
+[height]="130"
+[showTitle]="true"
+title="Sure want to delete?"
+[dragEnabled]="false"
+[hideOnOutsideClick]="false"
+[(visible)]="deletePopupVisibility"
+[showCloseButton]="false"
+>
+
+    <dx-button
+        text="Yes"
+        (onClick)="handleDelete()">
+    </dx-button>
+    <dx-button
+        text="No"
+        (onClick)="deletePopupVisibility = !deletePopupVisibility">
+    </dx-button>
+    
+
+</dx-popup>
+
+
+<dx-popup
+[width]="300"
+[height]="130"
+id="editingChangePopup"
+[showTitle]="true"
+title="Do you want to save changes?"
+[dragEnabled]="false"
+[hideOnOutsideClick]="false"
+[(visible)]="editingChangePopupVisibility"
+[showCloseButton]="false"
+>
+
+    <dx-button
+        class="save-edit-btn"
+        text="Yes"
+        (onClick)="handleSubmit(formData)">
+    </dx-button>
+    <dx-button
+        class="save-edit-btn"
+        text="No"
+        (onClick)="onClickNoEditSaveChanges()">
+    </dx-button>
+    <dx-button
+        class="save-edit-btn"
+        text="Cancel"
+        (onClick)="onClickCancelEditSaveChanges()">
+    </dx-button>
+    
+
+</dx-popup>
+
+<div>
+    <dx-button
+        icon="back"
+        [routerLink]="(['/action2'])"
+    >
+    </dx-button>
+    
+    <div class="card-container" *ngIf="seeDetailData">
+        <div class="card text-bg-success mb-3" style="max-width: 23rem;">
+            <div class="card-header">Food Detail</div>
+            <div class="card-body">
+                <h5 class="card-title">{{seeDetailData.food_item}}</h5>
+                <p class="card-text">Category: {{seeDetailData.category}}</p>
+                <p class="card-text">Measure: {{seeDetailData.measure}}</p>
+                <p class="card-text">Calories: {{seeDetailData.calories}}</p>
+                <p class="card-text">Protein: {{seeDetailData.protein}}</p>
+                <p class="card-text">Fats: {{seeDetailData.fats}}</p>
+                <p class="card-text">Carbs: {{seeDetailData.carbs}}</p>
+                <p class="card-text">Fibre: {{seeDetailData.fibre}}</p>
+                <p class="card-text">Price: {{seeDetailData.price}}</p>
+                <p class="card-text">Food Type: {{seeDetailData.food_type}}</p>
+                <p class="card-text">Rating: {{seeDetailData.rating}}</p>
+                <p class="card-text">Serving Size: {{seeDetailData.serving_size}}</p>
+                <p class="card-text">Sugar: {{seeDetailData.sugar}}</p>
+            </div>
+        </div>
+    </div>
+</div>

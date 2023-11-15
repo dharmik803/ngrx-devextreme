@@ -19,14 +19,6 @@
     <dxo-pager [showNavigationButtons]="true" [showInfo]="true" displayMode="compact"></dxo-pager>
 
 
-      <!-- <dxi-column
-        dataField="id"
-        sortOrder="asc"
-        [visible]="false"
-        [allowEditing]="false"
-      >
-      </dxi-column> -->
-
       <dxi-column dataField="category" alignment="center" [fixed]="true" [width]="230">
         
       </dxi-column>
@@ -59,6 +51,19 @@
         <a class="link-class" (click)="onClickEditFood(f)"> {{f.value}}</a>
       </div>
 
+      <dxi-column
+        dataField="id"
+        caption=""
+        [allowEditing]="false"
+        cellTemplate="id"
+      >
+      </dxi-column>
+
+      <div
+        *dxTemplate="let i of 'id'"
+      >
+        <a class="detail-link" (click)="onClickShowDetail(i)">See Details</a>
+      </div>
 
     </dx-data-grid>
   </div>

@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { foodReducer } from './store/ngrx.reducer';
 import { FoodEffects } from './store/ngrx.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HeaderComponent,
     ActionComponent,
     Action2Component,
-    Action3Component
+    Action3Component,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
