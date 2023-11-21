@@ -135,12 +135,16 @@ title="Sure want to delete?"
 [height]="130"
 id="editingChangePopup"
 [showTitle]="true"
-title="Do you want to save changes?"
+title="Close"
 [dragEnabled]="false"
 [hideOnOutsideClick]="false"
 [(visible)]="editingChangePopupVisibility"
 [showCloseButton]="false"
 >
+
+    <div>
+        <p>Do you want to save changes?</p>
+    </div>
 
     <dx-button
         class="save-edit-btn"

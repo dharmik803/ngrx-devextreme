@@ -37,3 +37,7 @@
     align-items: center;
     height: 94.2vh;
 }
+
+::ng-deep #editingChangePopup{
+    width: 300px !important;
+}
