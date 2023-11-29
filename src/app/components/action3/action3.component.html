@@ -5,13 +5,21 @@
     [title]="formTitle"
     [dragEnabled]="false"
     [visible]="popupVisible"
-    [hideOnOutsideClick]="true"
+    [hideOnOutsideClick]="false"
     (onHidden)="onHidden()"
     (onShowing)="onShowing()"
     [showCloseButton]="false"
 >
 
 <div class="form-container">
+
+    <dx-button
+        id="editingEnable"
+        icon="edit"
+        text="Edit"
+        (onClick)="onClickEditingFromToggle()">
+    </dx-button>
+
     <dx-button
         id="closeEditPopup"
         icon="close"
@@ -20,8 +28,10 @@
     
     <form (submit)="handleSubmit(formData)">
         <dx-form
+            #nxform
             [(formData)]="formData"
             [colCount]="2"
+            [readOnly]="!formFieldEditable"
         >
             <dxi-item dataField="id" [visible]="false">
                 
@@ -168,7 +178,7 @@ title="Close"
 <div>
     <dx-button
         icon="back"
-        [routerLink]="(['/action2'])"
+        (onClick)="backButton()"
     >
     </dx-button>
     

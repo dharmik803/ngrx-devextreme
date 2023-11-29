@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { DxFormComponent } from 'devextreme-angular';
 import { Foods } from 'src/app/models/fooditem.model';
 import { loadFood } from 'src/app/store/ngrx.action';
 import { getFoodList } from 'src/app/store/ngrx.selector';
@@ -22,9 +23,13 @@ export class Action3Component implements OnInit {
 
   @Output() deleteId = new EventEmitter<number>();
 
+  @ViewChild('nxform') nxform!: DxFormComponent;
+
   formData!: Foods;
 
   seeDetailData!: Foods;
+
+  formFieldEditable!: boolean;
 
   // selectBoxFoodType = [
   //   {
@@ -103,6 +108,8 @@ export class Action3Component implements OnInit {
         });
       }
     });
+    
+    
   }
 
   onHidden() {
@@ -164,8 +171,11 @@ export class Action3Component implements OnInit {
         serving_size: '',
         sugar: 0,
       };
+
+      this.formFieldEditable = true;
     } else {
       this.formData = { ...this.currentFood };
+      this.formFieldEditable = false;
     }
   }
 
@@ -209,5 +219,13 @@ export class Action3Component implements OnInit {
 
   onClickCancelEditSaveChanges() {
     this.editingChangePopupVisibility = false;
+  }
+
+  onClickEditingFromToggle(){
+    this.formFieldEditable = !this.formFieldEditable;
+  }
+
+  backButton(){
+    history.back();
   }
 }

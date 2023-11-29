@@ -41,3 +41,15 @@
 ::ng-deep #editingChangePopup{
     width: 300px !important;
 }
+
+::ng-deep #editingEnable{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 45px;
+    margin-top: 7px;
+}
+
+::ng-deep .dx-overlay-wrapper input{
+    
+}

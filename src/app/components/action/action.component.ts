@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MasterService } from 'src/app/services/master.service';
 import { Workbook } from 'exceljs';
@@ -16,7 +16,11 @@ export class ActionComponent implements OnInit {
   dataList: any[] = [];
   
 
-  constructor(private service: MasterService) {}
+  constructor(
+    private service: MasterService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     
@@ -169,5 +173,7 @@ export class ActionComponent implements OnInit {
   onProgress(e: any){
     console.log('onProgress event', e);
   }
+
+
 
 }
